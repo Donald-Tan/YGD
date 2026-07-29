@@ -53,7 +53,7 @@ function mediaMarkup(post) {
 function renderPosts(posts) {
   if (!posts.length) {
     feedEl.innerHTML = `<div class="panel"><div class="head">Blog</div>
-      <div class="body">no posts yet... check back soon &#128064;</div></div>`;
+      <div class="body">no posts yet... check back soon</div></div>`;
     stackEl.innerHTML = `<li><a href="#">nothing here yet</a></li>`;
     return;
   }
@@ -62,13 +62,13 @@ function renderPosts(posts) {
     const d = toDate(p.createdAt);
     return `
     <article class="panel blog-entry" id="${slug(p.id)}">
-      <div class="head">&#9997; Blog Entry ${posts.length - i}</div>
+      <div class="head entry-head">Blog Entry ${posts.length - i}</div>
       <div class="body">
-        <span class="meta-time">&#128337; ${esc(fmtTime(d))}</span>
+        <span class="meta-time">${esc(fmtTime(d))}</span>
         <h3 class="title">${esc(p.title)}</h3>
         ${mediaMarkup(p)}
         <p class="blog-desc">${esc(p.description).replace(/\n/g, "<br>")}</p>
-        <p class="tag-line"><span class="kudos">&#9829; kudos</span> ·
+        <p class="tag-line"><span class="kudos">kudos</span> ·
            <a href="#${slug(p.id)}">permalink</a> ·
            <a href="#feed-top">&uarr; top</a></p>
       </div>

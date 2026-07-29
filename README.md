@@ -11,9 +11,39 @@ Three pages, one aesthetic:
 
 Navigation everywhere is just **home · search · blogs** — as requested.
 
-> The portrait at `assets/profile.svg` is a placeholder. Drop in your own
-> photo (e.g. `assets/profile.jpg`) and update the `<img src>` in
-> `index.html` to use it.
+---
+
+## Homepage music player
+
+The player bar on the photo is wired to a real `<audio>` element (play /
+prev / next / stop / mute, plus an equalizer that reacts to actual playback
+via the Web Audio API). The default playlist lists:
+
+- Freddie Gibbs & The Alchemist — *Babies & Fools*
+- Kanye West — *We Major*
+- Kanye West — *Beauty and the Beast*
+- Matt Proxy — *Cus Ima Joka Smoka*
+- Nine — *Vicious Racks Blue*
+- Erykah Badu — *Didn't Cha Know*
+
+**These are commercial, copyrighted recordings, so this project cannot ship
+the actual audio files.** Instead, `js/player.js` points each track at a
+local path under `assets/music/` — supply your own legally-owned copy of
+each file at these exact names and it'll just work:
+
+```
+assets/music/babies-and-fools.mp3
+assets/music/we-major.mp3
+assets/music/beauty-and-the-beast.mp3
+assets/music/cus-ima-joka-smoka.mp3
+assets/music/vicious-racks-blue.mp3
+assets/music/didnt-cha-know.mp3
+```
+
+Alternatively (or in addition), sign in at `/admin` and use the **Add a
+Track** section to upload any audio file — uploaded tracks are stored in
+Firestore/Storage and are added to the top of the homepage playlist
+automatically, live, no redeploy needed.
 
 ---
 
@@ -51,13 +81,18 @@ Only that Google account can open `/admin` or write posts.
 
 ### Firestore security rules
 
-Anyone can read blogs; only the owner can write them:
+Anyone can read blogs and tracks; only the owner can write them:
 
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /blogs/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.email == "b1tchimd1@gmail.com";
+    }
+    match /tracks/{doc} {
       allow read: if true;
       allow write: if request.auth != null
                    && request.auth.token.email == "b1tchimd1@gmail.com";
@@ -73,6 +108,11 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
     match /blogs/{file=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.email == "b1tchimd1@gmail.com";
+    }
+    match /tracks/{file=**} {
       allow read: if true;
       allow write: if request.auth != null
                    && request.auth.token.email == "b1tchimd1@gmail.com";
@@ -112,14 +152,17 @@ domains** so Google sign-in is allowed there.
 ## Structure
 
 ```
-index.html              home / profile
+index.html              home / profile + latest blog + music player
 blog.html               blog feed + stack navigator
 admin.html              webmaster console (served at /admin)
 css/style.css           the whole Y2K grunge design system
 js/firebase-config.js   <- put your keys + owner email here
 js/data.js              demo posts (fallback / demo mode)
+js/home.js              renders the latest post on the homepage
 js/blog.js              loads + renders posts and the stack nav
-js/admin.js             Google auth gate + post publishing
-assets/profile.svg      placeholder portrait (swap for your own)
+js/admin.js             Google auth gate + post/track publishing
+js/player.js            homepage audio player + playlist logic
+assets/profile.jpg      the profile photo (swap for your own)
+assets/music/           put your own licensed mp3s here (see above)
 firebase.json           hosting config (cleanUrls + /admin rewrite)
 ```

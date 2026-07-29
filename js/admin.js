@@ -8,12 +8,14 @@ import { firebaseConfig, ADMIN_EMAIL, isConfigured } from "./firebase-config.js"
 
 const gate     = document.getElementById("gate");
 const editor   = document.getElementById("editor");
+const musicEditor = document.getElementById("musicEditor");
 const denied   = document.getElementById("denied");
 const notice   = document.getElementById("notice");
 const whoEl    = document.getElementById("who");
 const signInBtn  = document.getElementById("signInBtn");
 const signOutBtn = document.getElementById("signOutBtn");
 const form     = document.getElementById("blogForm");
+const trackForm  = document.getElementById("trackForm");
 
 function say(msg, kind = "warn") {
   notice.className = "notice " + kind;
@@ -58,18 +60,18 @@ async function bootFirebase() {
 
   auth.onAuthStateChanged(A, (user) => {
     if (!user) {
-      show(gate); hide(editor); hide(denied);
+      show(gate); hide(editor); hide(musicEditor); hide(denied);
       notice.classList.add("hidden");
       return;
     }
     hide(gate);
     if (user.email !== ADMIN_EMAIL) {
       // not the owner — refuse, and sign them back out
-      hide(editor); show(denied);
+      hide(editor); hide(musicEditor); show(denied);
       denied.querySelector("[data-email]").textContent = user.email;
       return;
     }
-    hide(denied); show(editor);
+    hide(denied); show(editor); show(musicEditor);
     whoEl.textContent = user.email;
   });
 
@@ -113,6 +115,48 @@ async function bootFirebase() {
     } catch (err) {
       console.error(err);
       say("Could not post: " + err.message, "err");
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  /* ---------- submit a new track ---------- */
+  trackForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const submitBtn = trackForm.querySelector(".submit");
+    const title = trackForm.title.value.trim();
+    const artist = trackForm.artist.value.trim();
+    let url = trackForm.trackUrl.value.trim();
+    const file = trackForm.trackFile.files[0];
+
+    if (!title || (!url && !file)) {
+      say("A track title and either a URL or an audio file are required.", "err");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    try {
+      if (file) {
+        say("Uploading track…", "warn");
+        const path = `tracks/${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
+        const ref  = storage.ref(st, path);
+        await storage.uploadBytes(ref, file);
+        url = await storage.getDownloadURL(ref);
+      }
+
+      await fs.addDoc(fs.collection(db, "tracks"), {
+        title,
+        artist,
+        url,
+        author: A.currentUser.email,
+        createdAt: fs.serverTimestamp(),
+      });
+
+      trackForm.reset();
+      say("Track added! ✓  It's in the homepage playlist.", "ok");
+    } catch (err) {
+      console.error(err);
+      say("Could not add track: " + err.message, "err");
     } finally {
       submitBtn.disabled = false;
     }
