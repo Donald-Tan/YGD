@@ -33,10 +33,9 @@
   <!-- ================= NAV ================= -->
   <nav class="nav">
     <a href="index.html">Home</a>
-    <a href="#" id="searchToggle">Search</a>
     <a href="blog.html" class="active">Blog</a>
     <form class="search" onsubmit="return doSearch(event)">
-      <input type="text" id="q" placeholder="filter blogs..." aria-label="search blogs">
+      <input type="text" id="q" class="nav-search-input" placeholder="search blogs..." aria-label="search blogs">
       <button>go</button>
     </form>
   </nav>
@@ -93,10 +92,8 @@
 </div>
 
 <script type="module" src="js/blog.js"></script>
+<script type="module" src="js/search.js"></script>
 <script>
-  document.getElementById('searchToggle').addEventListener('click', function(e){
-    e.preventDefault(); document.getElementById('q').focus();
-  });
   function doSearch(e){
     e.preventDefault();
     const term = document.getElementById('q').value.toLowerCase().trim();
