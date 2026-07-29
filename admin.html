@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>YGD — admin</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%94%92%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ BRAND BAR ============ -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">Y<b>G</b>D</span>
+      <span class="tag">.com &mdash; webmaster console<span class="blink">_</span></span>
+      <span class="status">&#128274; SECURE</span>
+    </div>
+  </header>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav">
+    <a href="index.html">home</a>
+    <a href="#" onclick="return false">search</a>
+    <a href="blog.html">blogs</a>
+  </nav>
+
+  <div class="strip"><div class="inner">
+    <marquee scrollamount="6">★ RESTRICTED AREA ★ webmaster only ★ sign in with the owner google account to post ★</marquee>
+  </div></div>
+
+  <main class="admin-wrap">
+
+    <div id="notice" class="notice hidden"></div>
+
+    <!-- SIGN-IN GATE -->
+    <div class="panel" id="gate">
+      <div class="head">&#128274; Restricted &mdash; Webmaster Login</div>
+      <div class="body gate">
+        <p style="font-family:'VT323',monospace;font-size:16px;">
+          This console lets the owner post new blogs.<br>
+          Sign in with the authorized Google account to continue.</p>
+        <button class="gsign" id="signInBtn">
+          <span class="g">G</span><span class="o">o</span><span class="g2">o</span><span class="g">g</span><span class="g3">l</span><span class="o">e</span>
+          &nbsp;— Sign in
+        </button>
+      </div>
+    </div>
+
+    <!-- ACCESS DENIED -->
+    <div class="panel hidden" id="denied">
+      <div class="head" style="background:#a00">&#9940; Access Denied</div>
+      <div class="body">
+        <p class="notice err" style="margin:0">
+          Sorry, <b data-email>that account</b> isn't the webmaster.
+          This console is restricted to the site owner only.
+        </p>
+        <p><button class="signout" id="signOutBtn">sign out &amp; try another account</button></p>
+      </div>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="panel hidden" id="editor">
+      <div class="head">&#9997; New Blog Post</div>
+      <div class="body">
+        <p style="margin:0 0 8px">
+          <span class="who">signed in as <b id="who"></b></span>
+          &nbsp;&nbsp;<button class="signout" id="signOutBtn2" onclick="document.getElementById('signOutBtn')?.click()">sign out</button>
+        </p>
+
+        <form id="blogForm" class="blogform">
+          <label for="f-title">Title *</label>
+          <input id="f-title" name="title" type="text" maxlength="120"
+                 placeholder="give it a title..." required>
+
+          <label for="f-desc">Description *</label>
+          <textarea id="f-desc" name="description"
+                    placeholder="what's this post about? (line breaks are kept)"
+                    required></textarea>
+
+          <label for="f-type">Media type</label>
+          <select id="f-type" name="mediaType">
+            <option value="image">Picture</option>
+            <option value="video">Video</option>
+          </select>
+
+          <label for="f-url">Media URL <small>(paste a link — image URL, or a YouTube / mp4 link)</small></label>
+          <input id="f-url" name="mediaUrl" type="url"
+                 placeholder="https://...  (leave blank if uploading a file below)">
+
+          <label for="f-file">…or upload a file <small>(uses Firebase Storage)</small></label>
+          <input id="f-file" name="mediaFile" type="file" accept="image/*,video/*">
+
+          <button class="submit" type="submit">&#128228; Publish post</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="foot" style="margin-top:14px">
+      <p><a href="blog.html">&laquo; back to the blog</a></p>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>
