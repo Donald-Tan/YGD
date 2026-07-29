@@ -3,66 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YGD — blogs</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%92%BF%3C/text%3E%3C/svg%3E">
+<title>YGD — blog</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%E2%AD%90%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="page">
 
-  <!-- ============ BRAND BAR ============ -->
+  <!-- ================= TOP BRAND BAR ================= -->
   <header class="topbar">
-    <div class="brand">
-      <span class="logo">Y<b>G</b>D</span>
-      <span class="tag">.com &mdash; the blog<span class="blink">_</span></span>
-      <span class="status" id="modeNote">loading...</span>
+    <div class="brand-left">
+      <svg class="friends-ico" viewBox="0 0 48 40" aria-hidden="true">
+        <g fill="#fff">
+          <circle cx="10" cy="9" r="5"/><rect x="3" y="16" width="14" height="12" rx="3"/>
+          <circle cx="26" cy="7" r="6"/><rect x="17" y="15" width="18" height="15" rx="3"/>
+          <circle cx="41" cy="10" r="4"/><rect x="35" y="16" width="11" height="11" rx="2"/>
+        </g>
+      </svg>
+      <div class="brand-name">YGD<small>the blog.</small></div>
+    </div>
+    <div class="brand-right">
+      <span class="handle-script">@yell0w.god</span>
+      <span class="online" id="modeNote">loading…</span>
+      <span class="doodle star-top">
+        <svg width="34" height="34" viewBox="0 0 100 100"><path d="M50 6 L60 39 L95 38 L67 59 L79 93 L50 72 L21 92 L33 58 L5 37 L40 39 Z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></svg>
+      </span>
     </div>
   </header>
 
-  <!-- ============ NAV ============ -->
+  <!-- ================= NAV ================= -->
   <nav class="nav">
-    <a href="index.html">home</a>
-    <a href="#" id="searchToggle">search</a>
-    <a href="blog.html" class="active">blogs</a>
+    <a href="index.html">Home</a>
+    <a href="#" id="searchToggle">Search</a>
+    <a href="blog.html" class="active">Blog</a>
     <form class="search" onsubmit="return doSearch(event)">
       <input type="text" id="q" placeholder="filter blogs..." aria-label="search blogs">
       <button>go</button>
     </form>
   </nav>
 
-  <!-- ============ MARQUEE ============ -->
-  <div class="strip"><div class="inner">
-    <marquee scrollamount="6">★ THE BLOG ★ pics · clips · 3am thoughts ★ use the stack on the right &rarr; to jump around ★ new posts appear live ★ sign the guestbook ★</marquee>
-  </div></div>
+  <!-- ================= BODY ================= -->
+  <main class="blog-cols">
 
-  <!-- ============ BODY COLUMNS ============ -->
-  <main class="cols blog">
+    <div class="halftone" style="width:150px;height:150px;right:-10px;top:-10px;"></div>
+    <div class="splatter" style="width:130px;height:130px;left:40%;bottom:0;opacity:.35;"></div>
 
-    <!-- LEFT/MAIN: the feed -->
+    <!-- feed -->
     <section id="feed-top">
       <div id="feed">
         <div class="panel"><div class="head">Blog</div>
-          <div class="body">loading posts&hellip; &#128253;</div></div>
+          <div class="body">loading posts&hellip; &#9835;</div></div>
       </div>
     </section>
 
-    <!-- RIGHT: the stack navigator -->
+    <!-- the stack navigator -->
     <aside>
-      <div class="panel stack" style="position:sticky; top:8px;">
+      <div class="panel stack" style="position:sticky; top:10px;">
         <div class="head">&#128204; The Stack</div>
         <div class="body">
-          <p style="margin:0 0 6px;font-family:'VT323',monospace;font-size:14px;color:#333;">
-            jump to any entry &darr;</p>
-          <ol id="stackList">
-            <li><a href="#">loading&hellip;</a></li>
-          </ol>
+          <p class="hint">jump to any entry &darr;</p>
+          <ol id="stackList"><li><a href="#">loading&hellip;</a></li></ol>
         </div>
       </div>
 
       <div class="panel">
         <div class="head">Post something?</div>
-        <div class="body" style="font-family:'VT323',monospace;font-size:15px;">
-          only the webmaster can post. that lives at
+        <div class="body" style="color:var(--dim)">
+          only the webmaster can post &mdash; that lives at
           <a href="admin.html">/admin</a> &#128274;
         </div>
       </div>
@@ -70,9 +77,8 @@
   </main>
 
   <footer class="foot">
-    <p><a href="index.html">home</a> · <a href="blog.html">blogs</a> ·
-       <a href="admin.html">admin</a></p>
-    <p>YGD &copy; 2001&ndash;4ever · turn ur speakers up</p>
+    <p><a href="index.html">Home</a> · <a href="blog.html">Blog</a> · <a href="admin.html">Admin</a></p>
+    <p>YGD &copy; forever · not your average</p>
   </footer>
 </div>
 
@@ -81,7 +87,6 @@
   document.getElementById('searchToggle').addEventListener('click', function(e){
     e.preventDefault(); document.getElementById('q').focus();
   });
-  // simple client-side filter over rendered entries
   function doSearch(e){
     e.preventDefault();
     const term = document.getElementById('q').value.toLowerCase().trim();
