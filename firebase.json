@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "README.md"
+    ],
+    "cleanUrls": true,
+    "rewrites": [
+      { "source": "/admin", "destination": "/admin.html" },
+      { "source": "/blogs", "destination": "/blog.html" }
+    ]
+  }
+}

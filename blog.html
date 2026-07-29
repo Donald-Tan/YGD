@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YGD — blogs</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%92%BF%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ BRAND BAR ============ -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">Y<b>G</b>D</span>
+      <span class="tag">.com &mdash; the blog<span class="blink">_</span></span>
+      <span class="status" id="modeNote">loading...</span>
+    </div>
+  </header>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav">
+    <a href="index.html">home</a>
+    <a href="#" id="searchToggle">search</a>
+    <a href="blog.html" class="active">blogs</a>
+    <form class="search" onsubmit="return doSearch(event)">
+      <input type="text" id="q" placeholder="filter blogs..." aria-label="search blogs">
+      <button>go</button>
+    </form>
+  </nav>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="strip"><div class="inner">
+    <marquee scrollamount="6">★ THE BLOG ★ pics · clips · 3am thoughts ★ use the stack on the right &rarr; to jump around ★ new posts appear live ★ sign the guestbook ★</marquee>
+  </div></div>
+
+  <!-- ============ BODY COLUMNS ============ -->
+  <main class="cols blog">
+
+    <!-- LEFT/MAIN: the feed -->
+    <section id="feed-top">
+      <div id="feed">
+        <div class="panel"><div class="head">Blog</div>
+          <div class="body">loading posts&hellip; &#128253;</div></div>
+      </div>
+    </section>
+
+    <!-- RIGHT: the stack navigator -->
+    <aside>
+      <div class="panel stack" style="position:sticky; top:8px;">
+        <div class="head">&#128204; The Stack</div>
+        <div class="body">
+          <p style="margin:0 0 6px;font-family:'VT323',monospace;font-size:14px;color:#333;">
+            jump to any entry &darr;</p>
+          <ol id="stackList">
+            <li><a href="#">loading&hellip;</a></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="head">Post something?</div>
+        <div class="body" style="font-family:'VT323',monospace;font-size:15px;">
+          only the webmaster can post. that lives at
+          <a href="admin.html">/admin</a> &#128274;
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="foot">
+    <p><a href="index.html">home</a> · <a href="blog.html">blogs</a> ·
+       <a href="admin.html">admin</a></p>
+    <p>YGD &copy; 2001&ndash;4ever · turn ur speakers up</p>
+  </footer>
+</div>
+
+<script type="module" src="js/blog.js"></script>
+<script>
+  document.getElementById('searchToggle').addEventListener('click', function(e){
+    e.preventDefault(); document.getElementById('q').focus();
+  });
+  // simple client-side filter over rendered entries
+  function doSearch(e){
+    e.preventDefault();
+    const term = document.getElementById('q').value.toLowerCase().trim();
+    document.querySelectorAll('#feed .blog-entry').forEach(function(el){
+      const hit = !term || el.textContent.toLowerCase().includes(term);
+      el.style.display = hit ? '' : 'none';
+    });
+    return false;
+  }
+</script>
+</body>
+</html>
