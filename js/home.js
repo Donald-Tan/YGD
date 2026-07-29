@@ -40,13 +40,13 @@ function mediaMarkup(post) {
 }
 function render(post) {
   if (!post) {
-    el.innerHTML = `<p class="latest-empty">no posts yet &mdash; check back soon &#128064;</p>`;
+    el.innerHTML = `<p class="latest-empty">no posts yet &mdash; check back soon</p>`;
     return;
   }
   const d = toDate(post.createdAt);
   el.innerHTML = `
     <article class="blog-entry">
-      <span class="meta-time">&#128337; ${esc(fmtTime(d))}</span>
+      <span class="meta-time">${esc(fmtTime(d))}</span>
       <h3 class="title">${esc(post.title)}</h3>
       ${mediaMarkup(post)}
       <p class="blog-desc">${esc(post.description).replace(/\n/g, "<br>")}</p>
