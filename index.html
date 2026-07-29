@@ -117,7 +117,7 @@
         </span>
 
         <!-- safety pin, right side -->
-        <span class="doodle" style="right:-26px;bottom:80px;">
+        <span class="doodle" style="right:-8px;bottom:80px;">
           <svg width="46" height="120" viewBox="0 0 46 120">
             <g fill="none" stroke="#d9d4c2" stroke-width="4" stroke-linecap="round">
               <path d="M30 12 C42 20 42 40 30 52 L18 96"/>
@@ -161,12 +161,26 @@
     </section>
   </main>
 
+  <!-- ================= LATEST BLOG ================= -->
+  <section class="latest-wrap">
+    <div class="latest-head"><span class="mk">Latest Blog</span></div>
+    <div class="panel">
+      <div class="body" id="latestBlog">
+        <p class="latest-empty">loading latest post&hellip;</p>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <a class="viewmore" href="blog.html">view more blogs &rarr;</a>
+    </div>
+  </section>
+
   <footer class="foot">
     <p><a href="index.html">Home</a> · <a href="blog.html">Blog</a> · <a href="admin.html">Admin</a></p>
     <p>YGD &copy; forever · too real to be fake · visitor <span class="counter">0013371</span></p>
   </footer>
 </div>
 
+<script type="module" src="js/home.js"></script>
 <script>
   document.getElementById('searchToggle').addEventListener('click', function(e){
     e.preventDefault(); document.querySelector('.nav .search input').focus();
