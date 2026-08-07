@@ -256,7 +256,7 @@ html, body { overflow-x: hidden; }
    and the photo stretches to match the info panel's height. */
 .home-cols {
   position: relative;
-  display: grid; grid-template-columns: 42% 1fr; gap: 14px;
+  display: grid; grid-template-columns: 2fr 3fr; gap: 14px;
   align-items: stretch;
 }
 .pcol > .panel { height: 100%; margin-bottom: 0; }
