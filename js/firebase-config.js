@@ -14,12 +14,12 @@
    ===================================================================== */
 
 export const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT.firebaseapp.com",
-  projectId:         "YOUR_PROJECT",
-  storageBucket:     "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID",
+  apiKey:            "AIzaSyAuvFKO9TZyyc0jCTH64zaF-m8fZGmITx8",
+  authDomain:        "sealien.firebaseapp.com",
+  projectId:         "sealien",
+  storageBucket:     "sealien.firebasestorage.app",
+  messagingSenderId: "728405345954",
+  appId:             "1:728405345954:web:68a093db18405869ea39fb",
 };
 
 /* Only this Google account may access /admin and write blog posts.
